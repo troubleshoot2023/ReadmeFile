@@ -8,7 +8,7 @@ import com.profile.response.Response;
 
 public interface EmployeeService {
 
-	 Response saveEmployeeInfo(EmployeeDto dto);
+	EmployeeDto saveEmployeeInfo(EmployeeDto dto);
 
 	 List<EmployeeDto> fetchAllEmployee();
 	

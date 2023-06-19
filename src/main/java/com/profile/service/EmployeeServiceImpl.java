@@ -34,16 +34,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 
 	@Override
-	public Response saveEmployeeInfo(EmployeeDto dto) {
+	public EmployeeDto saveEmployeeInfo(EmployeeDto dto) {
 
 		Employee e = mapToEntity(dto);
-		System.out.println(e.getEmail());
-		try {
+		
+		
 			if (repo.existsByEmail(e.getEmail())) {
 				throw new UserExist("Employee Exist in this Email Id "+e.getEmail()+ " try new One");
 			}
-		} catch (Exception e2) {
-		}
 
 		List<Employee> list = repo.findAll();
 
@@ -66,11 +64,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		Employee employee = repo.save(e);
 		EmployeeDto dt = mapToDto(employee);
-		Response response = new Response();
-		response.setDto(dto);
-		response.setAppLicationName(AppName);
-		response.setPortNumber(portNumber);
-		return response;
+		
+		return dt;
 	}
 
 	@Override
@@ -129,32 +124,34 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public String deleteByEmail(String email) {
-		Employee employee = repo.findByEmail(email);
-		repo.deleteById(employee.getId());
+		 repo.deleteByEmail(email);
 		return "Successfully Employee deleted "+email;
 	}
 
 	public Employee mapToEntity(EmployeeDto dto) {
 		Employee employee = new Employee();
-		employee.setEmail(dto.getEmail());
-		employee.setFirstName(dto.getFirstName());
-		employee.setGender(dto.getGender());
-		employee.setLastName(dto.getLastName());
-		employee.setMobile(dto.getMobile());
-		employee.setPassword(dto.getPassword());
+//		employee.setId(dto.getId());
+//		employee.setEmail(dto.getEmail());
+//		employee.setFirstName(dto.getFirstName());
+//		employee.setGender(dto.getGender());
+//		employee.setLastName(dto.getLastName());
+//		employee.setMobile(dto.getMobile());
+//		employee.setPassword(dto.getPassword());
 		return employee;
 	}
 	
 
-	public EmployeeDto mapToDto(Employee dto) {
-		EmployeeDto employee = new EmployeeDto();
-		employee.setEmail(dto.getEmail());
-		employee.setFirstName(dto.getFirstName());
-		employee.setGender(dto.getGender());
-		employee.setLastName(dto.getLastName());
-		employee.setMobile(dto.getMobile());
-		employee.setPassword(dto.getPassword());
-		return employee;
+	public EmployeeDto mapToDto(Employee e) {
+		
+		EmployeeDto dto = new EmployeeDto();
+//		dto.setId(e.getId());
+//		dto.setEmail(e.getEmail());
+//		dto.setFirstName(e.getFirstName());
+//		dto.setGender(e.getGender());
+//		dto.setLastName(e.getLastName());
+//		dto.setMobile(e.getMobile());
+//		dto.setPassword(e.getPassword());
+		return dto;
 	}
 
 }
